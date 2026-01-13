@@ -22,9 +22,7 @@ if os.name == 'nt':
             nxt = msvcrt.getch()
             return _WIN_ARROW_MAP.get(nxt, (ch + nxt).decode('utf-8', errors='ignore'))
         s = ch.decode('utf-8', errors='ignore')
-        # Normalize CR -> LF and Ctrl-H (backspace) -> DEL
-        if s == '\r':
-            return '\n'
+        # Normalize Ctrl-H (backspace) -> DEL
         if s == '\x08':
             return '\x7f'
         return s
@@ -58,9 +56,7 @@ else:
                 else:
                     break
             return ch + ''.join(seq)
-        # Normalize CR -> LF and Ctrl-H (backspace) -> DEL
-        if ch == '\r':
-            return '\n'
+        # Normalize Ctrl-H (backspace) -> DEL
         if ch == '\x08':
             return '\x7f'
         return ch
@@ -79,13 +75,13 @@ def init():
         global _old_settings
         _old_settings = termios.tcgetattr(sys.stdin.fileno())
         tty.setcbreak(sys.stdin.fileno())
+
 class Keys:
-    UP = '\x1b[A'
-    DOWN = '\x1b[B'
-    RIGHT = '\x1b[C'
-    LEFT = '\x1b[D'
-    ENTER = '\n'  # Normalize to LF
-    ESCAPE = '\x1b'
+    ENTER = '\n'
     BACKSPACE = '\x7f'
     CTRL_C = '\x03'
-    CTRL_D = '\x04'
+    LEFT = '\x1b[D'
+    RIGHT = '\x1b[C'
+    HOME = '\x1b[H'
+    END = '\x1b[F'
+    DELETE = '\x1b[3~'
