@@ -83,28 +83,28 @@ class EmbedTerminal:
             self.LOC += 1
         return False
 
-    if __name__ == "__main__":
-        term = EmbedTerminal()
-        try:
-            term.init_terminal()
-            print("Type something (Ctrl-C to exit):")
-            term.display_input(type="nl")
+if __name__ == "__main__":
+    term = EmbedTerminal()
+    try:
+        term.init_terminal()
+        print("Type something (Ctrl-C to exit):")
+        term.display_input(type="nl")
+        
+        while True:
+            submitted = term.tick()
             
-            while True:
-                submitted = term.tick()
+            if submitted:
+                current_text = term.read_input()
+                print()  # Move to next line after the prompt
+                if "quit" in current_text:
+                    break
+                print(f"Submitting: {current_text}")
+                term.clear_input()
+                term.display_input(type="nl")
+            else:
+                term.display_input(type="sl")
                 
-                if submitted:
-                    current_text = term.read_input()
-                    print()  # Move to next line after the prompt
-                    if "quit" in current_text:
-                        break
-                    print(f"Submitting: {current_text}")
-                    term.clear_input()
-                    term.display_input(type="nl")
-                else:
-                    term.display_input(type="sl")
-                    
-        except KeyboardInterrupt:
-            print("\nExiting...")
-        finally:
-            term.reset_terminal()
+    except KeyboardInterrupt:
+        print("\nExiting...")
+    finally:
+        term.reset_terminal()
