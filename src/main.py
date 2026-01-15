@@ -41,8 +41,8 @@ class EmbedTerminal:
             self.display_input(type="sl")
 
     def clear_input(self):
-        INPUT = []
-        LOC = 0
+        self.INPUT = []
+        self.LOC = 0
 
     def tick(self):
         ch = readchar.readchar()
