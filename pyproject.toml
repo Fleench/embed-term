@@ -32,6 +32,6 @@ classifiers = [
 ]
 
 [project.urls]
-Repository = "https://github.com/yourusernamefleench/embed-term"
+Repository = "https://github.com/Fleench/embed-term"
 [tool.setuptools.packages.find]
 where = ["src"]
