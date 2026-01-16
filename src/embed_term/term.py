@@ -1,7 +1,7 @@
 '''
 A basic module to embed a terminal-like input in Python applications.
 '''
-import readchar
+from . import readchar
 import sys
 class EmbedTerminal:
 
@@ -66,6 +66,8 @@ class EmbedTerminal:
         elif ch == readchar.Keys.LEFT:
             if self.LOC > 0:
                 self.LOC -= 1
+        elif ch == readchar.Keys.UP or ch == readchar.Keys.DOWN:
+            return False
         elif ch == readchar.Keys.DELETE:
             if self.LOC < len(self.INPUT):
                 self.INPUT.pop(self.LOC)
