@@ -1,5 +1,5 @@
-import readchar
-from term import *
+import embed_term.readchar
+from embed_term.term import *
 if __name__ == "__main__":
     mngr = TermManager()
     term1 = EmbedTerminal()
