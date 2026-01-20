@@ -85,3 +85,5 @@ class Keys:
     HOME = '\x1b[H'
     END = '\x1b[F'
     DELETE = '\x1b[3~'
+    UP = '\x1b[A'
+    DOWN = '\x1b[B'

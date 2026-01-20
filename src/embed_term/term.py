@@ -3,6 +3,7 @@ A basic module to embed a terminal-like input in Python applications.
 '''
 from . import readchar
 import sys
+'''
 class EmbedTerminal:
 
     def __init__(self):
@@ -110,3 +111,70 @@ if __name__ == "__main__":
         print("\nExiting...")
     finally:
         term.reset_terminal()
+'''
+class EmbedTerminal:
+    '''
+    A basic class to embed a terminal-like input in Python applications.
+    '''
+    def __init__(self):
+        self.input = []
+        self.loc = 0
+        self.prompt = ">"
+    def display(self):
+        return self.prompt + "".join(self.input)
+    def add_char(self, ch):
+        self.input.insert(self.loc, ch)
+        self.loc += len(ch)
+    def remove_char(self):
+        if self.loc > 0:
+            x = self.input.pop(self.loc - 1)
+            self.loc -= len(x)
+class TermManager:
+    '''
+    A basic terminal manager to handle multiple EmbedTerminal instances.
+    '''
+    def __init__(self):
+        self.terminals = {}
+        self.active_terminal = None
+    def add_terminal(self, name, term):
+        self.terminals[name] = term
+    def remove_terminal(self, name, term):
+        self.terminals.pop(name, None)
+    def set_active_terminal(self, name):
+        self.active_terminal = self.terminals.get(name, None)
+    def get_active_terminal(self):
+        return self.active_terminal
+    def tick(self):
+        if self.active_terminal:
+            if x:= readchar.readchar():  # Placeholder for actual input handling
+                match x:
+                    case readchar.Keys.BACKSPACE:
+                        self.active_terminal.remove_char()
+                    case readchar.Keys.ENTER:
+                        pass  # Handle enter key if needed
+                    case readchar.Keys.LEFT:
+                        if self.active_terminal.loc > 0:
+                            self.active_terminal.loc -= len(self.active_terminal.input[self.active_terminal.loc - 1])
+                    case readchar.Keys.RIGHT:
+                        if self.active_terminal.loc < len(self.active_terminal.input):
+                            self.active_terminal.loc += len(self.active_terminal.input[self.active_terminal.loc])
+                    case _:
+                        self.active_terminal.add_char(x)
+
+if __name__ == "__main__":
+    mngr = TermManager()
+    term1 = EmbedTerminal()
+    mngr.add_terminal("main", term1)
+    mngr.set_active_terminal("main")
+    try:
+        readchar.init()
+        print("Type something (Ctrl-C to exit):")
+        while True:
+            mngr.tick()
+            active_term = mngr.get_active_terminal()
+            if active_term:
+                print(f"\r\033[K{active_term.display()}", end='', flush=True)
+    except KeyboardInterrupt:
+        print("\nExiting...")
+    finally:
+        readchar.reset()

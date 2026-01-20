@@ -4,7 +4,7 @@ build-backend = "setuptools.build_meta"
 
 [project]
 name = "embed-term"
-version = "0.1.6"
+version = "0.1.7"
 description = "A basic module to embed a terminal-like input in Python applications"
 readme = "README.md"
 requires-python = ">=3.6"
