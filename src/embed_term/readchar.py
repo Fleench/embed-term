@@ -87,3 +87,49 @@ class Keys:
     DELETE = '\x1b[3~'
     UP = '\x1b[A'
     DOWN = '\x1b[B'
+class Codes:
+    # Base Control Sequence Introducer
+    CSI = "\033["
+
+    @staticmethod
+    def pos(row, col):
+        """Sets the cursor to a specific row and column."""
+        return f"{Codes.CSI}{row};{col}H"
+
+    @staticmethod
+    def up(n=1):
+        """Moves the cursor up n lines."""
+        return f"{Codes.CSI}{n}A"
+
+    @staticmethod
+    def down(n=1):
+        """Moves the cursor down n lines."""
+        return f"{Codes.CSI}{n}B"
+
+    @staticmethod
+    def right(n=1):
+        """Moves the cursor forward (right) n columns."""
+        return f"{Codes.CSI}{n}C"
+
+    @staticmethod
+    def left(n=1):
+        """Moves the cursor backward (left) n columns."""
+        return f"{Codes.CSI}{n}D"
+
+    @staticmethod
+    def clear_screen():
+        """Clears the entire screen and moves cursor to home."""
+        return f"{Codes.CSI}2J{Codes.CSI}H"
+
+    @staticmethod
+    def clear_line():
+        """Clears the line from the cursor position to the end."""
+        return f"{Codes.CSI}K"
+
+    @staticmethod
+    def hide_cursor():
+        return f"{Codes.CSI}?25l"
+
+    @staticmethod
+    def show_cursor():
+        return f"{Codes.CSI}?25h"
