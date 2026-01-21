@@ -127,17 +127,14 @@ class EmbedTerminal:
         self.prompt = ">"
         self.output = []
     def display(self):
-        try:
-            width = os.get_terminal_size().columns
-        except OSError:
-            width = 80  # Default width if terminal size cannot be determined
-        lines_to_go_up = math.floor(len(self.prompt+ "".join(self.input))/width)
+        width = os.get_terminal_size().columns
+        lines_to_go_up =  math.floor(len(self.prompt+ "".join(self.input))/width)
         up = readchar.Codes.up(lines_to_go_up)
         if lines_to_go_up == 0:
             up = ""
         # Sum 2 for emojis/wide chars, 1 for everything else
         visual_width = sum(2 if unicodedata.east_asian_width(c) in ('W', 'F') else 1 for c in "".join(self.input)[:self.loc])
-        input_line = f"{up}{readchar.Codes.clear_line()}{self.prompt}{''.join(self.input)}{readchar.Codes.set_col(1 + len(self.prompt) + visual_width)}"
+        input_line = f"{up}{self.prompt}{''.join(self.input)}{readchar.Codes.set_col(1 + len(self.prompt) + visual_width)}"
         return self.output, input_line
     def add_char(self, ch):
         self.input.insert(self.loc, ch)

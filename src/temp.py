@@ -1,12 +1,12 @@
 import embed_term.readchar as readchar
 import embed_term.term as term
 def disp(term):
-    readchar.clear()
+    #readchar.clear()
     disp_i = term.display()
-    print(readchar.Keys.HOME, end='', flush=True)
+    #print(readchar.Keys.HOME, end='', flush=True)
     for line in disp_i[0]:
         print(line)
-    print(f"\r\033[K{disp_i[1]}", end='', flush=True)
+    print(f"\r{disp_i[1]}", end='', flush=True)
 if __name__ == "__main__":
     mngr = term.TermManager()
     term1 = term.EmbedTerminal()
@@ -23,7 +23,7 @@ if __name__ == "__main__":
                 x = mngr.tick()
                 disp(active_term)
                 if x:
-                    active_term.output.append(active_term.prompt + active_term.read_input())
+                    #active_term.output.append(active_term.prompt + active_term.read_input())
                     if active_term.read_input() == "---":
                         active_term.output.append(f"size of last input is {len(y)} chars")
                     print()  # Move to next line after the prompt
