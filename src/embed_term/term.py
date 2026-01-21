@@ -131,7 +131,7 @@ class EmbedTerminal:
         up = readchar.Codes.up(lines_to_go_up)
         if lines_to_go_up == 0:
             up = ""
-        input_line = f"{up}{self.prompt}{"".join(self.input)}{readchar.Codes.set_col(1 + len(self.prompt.encode() + "".join(self.input)[:self.loc].encode()))}"
+        input_line = f"{up}{self.prompt}{"".join(self.input)}{readchar.Codes.set_col(1 + len(self.prompt + "".join(self.input)[:self.loc]))}"
         return self.output, input_line
     def add_char(self, ch):
         self.input.insert(self.loc, ch)

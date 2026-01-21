@@ -42,25 +42,19 @@ else:
         b = os.read(fd, 1)
         if not b:
             return None
-        ch = b.decode('utf-8', errors='ignore')
-        # If an escape was read, try to read the rest of the sequence within a short timeout
-        if ch == '\x1b':
-            seq = []
+        if b == b'\x1b':  # Possible start of an escape sequence
+            # Read additional bytes without blocking
             while True:
-                dr, _, _ = select.select([fd], [], [], 0.01)
-                if dr:
-                    more = os.read(fd, 1)
-                    if not more:
-                        break
-                    seq.append(more.decode('utf-8', errors='ignore'))
+                rlist, _, _ = select.select([fd], [], [], 0.0001)
+                if rlist:
+                    b += os.read(fd, 1)
                 else:
                     break
-            return ch + ''.join(seq)
-        # Normalize Ctrl-H (backspace) -> DEL
-        if ch == '\x08':
-            return '\x7f'
-        return ch
-
+        while True:
+            try:
+                return b.decode('utf-8')
+            except UnicodeDecodeError:
+                b += os.read(fd, 1)
     def reset():
         global _old_settings
         if _old_settings:
