@@ -6,6 +6,7 @@ from . import readchar
 import sys
 import os
 import math
+import unicodedata
 '''
 class EmbedTerminal:
 
@@ -131,15 +132,17 @@ class EmbedTerminal:
         up = readchar.Codes.up(lines_to_go_up)
         if lines_to_go_up == 0:
             up = ""
-        input_line = f"{up}{self.prompt}{"".join(self.input)}{readchar.Codes.set_col(1 + len(self.prompt + "".join(self.input)[:self.loc]))}"
+        # Sum 2 for emojis/wide chars, 1 for everything else
+        visual_width = sum(2 if unicodedata.east_asian_width(c) in ('W', 'F') else 1 for c in "".join(self.input)[:self.loc])
+        input_line = f"{up}{self.prompt}{''.join(self.input)}{readchar.Codes.set_col(1 + len(self.prompt) + visual_width)}"
         return self.output, input_line
     def add_char(self, ch):
         self.input.insert(self.loc, ch)
-        self.loc += len(ch)
+        self.loc += 1
     def remove_char(self):
         if self.loc > 0:
             x = self.input.pop(self.loc - 1)
-            self.loc -= len(x)
+            self.loc -= 1
     def clear_input(self):
         self.input = []
         self.loc = 0
