@@ -1,7 +1,8 @@
 '''
 A basic module to embed a terminal-like input in Python applications.
 '''
-from . import readchar
+#from . import readchar
+import readchar #pylint: disable=import-error
 import sys
 '''
 class EmbedTerminal:
@@ -121,7 +122,7 @@ class EmbedTerminal:
         self.loc = 0
         self.prompt = ">"
     def display(self):
-        return self.prompt + "".join(self.input)
+        return f"{self.prompt}{"".join(self.input)}{readchar.Codes.set_col(1 + len(self.prompt.encode() + "".join(self.input)[:self.loc].encode()))}"
     def add_char(self, ch):
         self.input.insert(self.loc, ch)
         self.loc += len(ch)
@@ -129,6 +130,11 @@ class EmbedTerminal:
         if self.loc > 0:
             x = self.input.pop(self.loc - 1)
             self.loc -= len(x)
+    def clear_input(self):
+        self.input = []
+        self.loc = 0
+    def read_input(self):
+        return "".join(self.input)
 class TermManager:
     '''
     An upgraded terminal manager to handle multiple EmbedTerminal instances.

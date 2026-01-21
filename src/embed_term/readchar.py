@@ -1,11 +1,10 @@
 import sys
 import os
-
 # We move these to the top level so they are available to all functions
 _old_settings = None
 
 if os.name == 'nt':
-    import msvcrt
+    import msvcrt # pylint: disable=import-error
 
     _WIN_ARROW_MAP = {
         b'H': '\x1b[A',  # Up
@@ -133,3 +132,9 @@ class Codes:
     @staticmethod
     def show_cursor():
         return f"{Codes.CSI}?25h"
+    @staticmethod
+    def set_col(n):
+        return f"{Codes.CSI}{n}G"
+    @staticmethod
+    def set_row(n):
+        return f"{Codes.CSI}{n}d"
