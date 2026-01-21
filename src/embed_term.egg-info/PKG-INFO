@@ -1,0 +1,33 @@
+Metadata-Version: 2.4
+Name: embed-term
+Version: 0.1.7
+Summary: A basic module to embed a terminal-like input in Python applications
+Author-email: Glenn Sutherland <dev.glenn@flench.me>
+License: MIT
+Project-URL: Repository, https://github.com/Fleench/embed-term
+Keywords: terminal,input,interactive
+Classifier: Development Status :: 3 - Alpha
+Classifier: Intended Audience :: Developers
+Classifier: License :: OSI Approved :: MIT License
+Classifier: Programming Language :: Python :: 3
+Classifier: Programming Language :: Python :: 3.6
+Classifier: Programming Language :: Python :: 3.7
+Classifier: Programming Language :: Python :: 3.8
+Classifier: Programming Language :: Python :: 3.9
+Classifier: Programming Language :: Python :: 3.10
+Classifier: Programming Language :: Python :: 3.11
+Classifier: Programming Language :: Python :: 3.12
+Classifier: Operating System :: OS Independent
+Classifier: Operating System :: Microsoft :: Windows
+Classifier: Operating System :: POSIX :: Linux
+Classifier: Operating System :: MacOS
+Requires-Python: >=3.6
+Description-Content-Type: text/markdown
+License-File: LICENSE
+Dynamic: license-file
+
+# embed-term
+
+A basic module to embed a terminal-like input in Python applications.
+
+Note: This will probbably change often and lacks documentation. Use at your own risk.

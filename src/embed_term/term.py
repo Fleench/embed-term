@@ -2,7 +2,7 @@
 A basic module to embed a terminal-like input in Python applications.
 '''
 #from . import readchar
-import readchar #pylint: disable=import-error
+from . import readchar
 import sys
 import os
 import math
@@ -124,13 +124,15 @@ class EmbedTerminal:
         self.input = []
         self.loc = 0
         self.prompt = ">"
+        self.output = []
     def display(self):
         width = os.get_terminal_size().columns
         lines_to_go_up = math.ceil(len(self.prompt+ "".join(self.input))/width)-1
         up = readchar.Codes.up(lines_to_go_up)
         if lines_to_go_up == 0:
             up = ""
-        return f"{up}{self.prompt}{"".join(self.input)}{readchar.Codes.set_col(1 + len(self.prompt.encode() + "".join(self.input)[:self.loc].encode()))}"
+        input_line = f"{up}{self.prompt}{"".join(self.input)}{readchar.Codes.set_col(1 + len(self.prompt.encode() + "".join(self.input)[:self.loc].encode()))}"
+        return self.output, input_line
     def add_char(self, ch):
         self.input.insert(self.loc, ch)
         self.loc += len(ch)

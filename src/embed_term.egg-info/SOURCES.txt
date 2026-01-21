@@ -1,0 +1,13 @@
+LICENSE
+MANIFEST.in
+README.md
+pyproject.toml
+src/__init__.py
+src/embed_term/formats.py
+src/embed_term/readchar.py
+src/embed_term/temp.py
+src/embed_term/term.py
+src/embed_term.egg-info/PKG-INFO
+src/embed_term.egg-info/SOURCES.txt
+src/embed_term.egg-info/dependency_links.txt
+src/embed_term.egg-info/top_level.txt

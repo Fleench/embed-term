@@ -28,7 +28,8 @@ if os.name == 'nt':
 
     def reset():
         pass
-
+    def clear():
+        os.system('cls')
 else:
     import select
     import termios
@@ -64,7 +65,8 @@ else:
         global _old_settings
         if _old_settings:
             termios.tcsetattr(sys.stdin.fileno(), termios.TCSADRAIN, _old_settings) 
-
+    def clear():
+        os.system('clear')
 def init():
     """Sets up the terminal mode."""
     if os.name != 'nt':
